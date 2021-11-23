@@ -133,7 +133,7 @@ public class SuffixArray {
         if (!suffix.exists()){
             System.out.println("Generando arreglo de sufijos");
             suffixArray.loadText();
-            suffixArray.save("res\\suffix_"+file);
+            suffixArray.save(suffix.getPath());
         } else {
             System.out.println("Cargando arreglo de sufijos");
             suffixArray.loadArray(suffix);
