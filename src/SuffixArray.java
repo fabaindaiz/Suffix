@@ -15,6 +15,9 @@ public class SuffixArray {
         this.text = text;
     }
 
+    /**
+     * Genera el arreglo de sufijos a partir del texto
+     */
     public void loadText() {
         array = IntStream.range(0, text.length()).boxed().collect(Collectors.toList());
 
@@ -31,6 +34,10 @@ public class SuffixArray {
         });
     }
 
+    /**
+     * Carga el arreglo de sufijos desde un archivo
+     * @param file Archivo de entrada
+     */
     public void loadArray(File file) {
         array = new ArrayList<>();
         try {
@@ -43,10 +50,20 @@ public class SuffixArray {
         }
     }
 
+    /**
+     * Genera un string para comparar evitando out of index
+     * @param i Elemento del array de sufijos
+     * @param lenght Largo de la consulta
+     * @return String del texto que se debe comparar
+     */
     public String text_compare(int i, int lenght) {
         return (array.get(i) + lenght > text.length()) ? text.substring(array.get(i)) : text.substring(array.get(i), array.get(i) + lenght);
     }
 
+    /**
+     * Busca un string en el texto e imprime el autocompletado
+     * @param searchString Cadena de texto a buscar
+     */
     public void search(String searchString) {
         if (searchString.equals("")){
             System.out.println("Se esta buscando el string vacio");
@@ -88,6 +105,13 @@ public class SuffixArray {
         System.out.println("Se encontraron " +coincidencias+ " coincidencias");
     }
 
+    /**
+     * Busqueda binaria en el texto utilizando el arreglo de sufijos
+     * @param start Indice de inicio
+     * @param end Indice de termino
+     * @param searchString Cadena de texto a buscar
+     * @return Ubicación del primer resultado para autocompletar
+     */
     public int BinarySearch(int start, int end, String searchString) {
         int i = (start + end)/2;
         int compare = text_compare(i, searchString.length()).compareTo(searchString);
@@ -105,6 +129,10 @@ public class SuffixArray {
         }
     }
 
+    /**
+     * Guarda el arrego de sufijos en un archivo
+     * @param file Archivo de salida
+     */
     public void save(String file) {
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(file));
@@ -122,7 +150,7 @@ public class SuffixArray {
         String file = sc.nextLine();
 
         File temp = new File("res\\text\\" + file);
-        File suffix = new File("res\\suffix\\" + file);
+        File suffix = new File("res\\array\\" + file);
         if (!temp.exists()) {
             System.out.println("No existe el archivo");
             return;
@@ -142,9 +170,5 @@ public class SuffixArray {
             System.out.print("Ingrese un texto: ");
             suffixArray.search(sc.nextLine());
         }
-
-
     }
-
-
 }
